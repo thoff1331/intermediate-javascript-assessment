@@ -12,9 +12,14 @@
 // with the animal as the context, and 'Trogdor' as a parameter.
 // return the result of your updateAnimal invocation
 
-// CODE HERE...
-
-
+var callBinding = function(magicAnimals, updateAnimal, id) {
+  return updateAnimal.call(
+    magicAnimals.filter(t => {
+      return t.id == id;
+    })[0],
+    "Trogdor"
+  );
+};
 
 // *************
 // * PROBLEM 2 *
@@ -27,9 +32,14 @@
 // with the context of the animal, and the array ['being majestic', 'eating rainbows'] as a parameter.
 // return the result of your updateAnimal invocation
 
-// CODE HERE...
-
-
+var applyBinding = function(magicAnimals, updateAnimal, id) {
+  return updateAnimal.apply(
+    magicAnimals.filter(t => {
+      return t.id == id;
+    })[0],
+    ["being majestic", "eating rainbows"]
+  );
+};
 
 // *************
 // * PROBLEM 3 *
@@ -47,10 +57,6 @@
 
 var foo;
 
-// CODE HERE...
-
-
-
 // *************
 // * PROBLEM 4 *
 // *************
@@ -63,4 +69,14 @@ var foo;
 // Make an array of emails (array of strings) from the returned data (You will need to console log or debug to figure this out),
 // and then resolve the array as you complete your promise.
 
-// CODE HERE...
+var emailList = function($q, $http) {
+  var a = [];
+  return new Promise(function(res) {
+    $http.get("/api/users").then(function(r) {
+      a = r.data.map(x => {
+        return x.email;
+      });
+      res(a);
+    });
+  });
+};
